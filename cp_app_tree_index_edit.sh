@@ -17,6 +17,9 @@ fi
 TARGETDIR=$WEKODIR/modules
 # args-check-end
 
+sed -i 's/webpackJsonp(/(window.webpackJsonp = window.webpackJsonp || \[\]).push(\[/g' ./app-tree-index-edit/dist/main.*.js 
+sed -i 's/\[0\]);/\[\[0,0\]]]);/g' ./app-tree-index-edit/dist/main.*.js 
+
 # copy-begin
 cp -p ./app-tree-index-edit/dist/inline.*.js    ${TARGETDIR}/weko-index-tree/weko_index_tree/static/js/weko_index_tree/inline.bundle.js
 cp -p ./app-tree-index-edit/dist/main.*.js      ${TARGETDIR}/weko-index-tree/weko_index_tree/static/js/weko_index_tree/main.bundle.js
