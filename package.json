@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "@angular/cli": "^14.2.6",
-    "typescript": "^2.6.2"
+    "@angular/cli": "^6.2.9",
+    "@ngtools/webpack": "^6.2.9",
+    "typescript": "^3.2.4",
+    "webpack": "^4.16.4"
   }
 }
