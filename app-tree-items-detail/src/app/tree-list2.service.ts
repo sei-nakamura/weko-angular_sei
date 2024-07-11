@@ -15,10 +15,10 @@ export class TreeList2Service {
   ) { }
 
  /**
-  *ÅVtreeî•ñ‚ğæ“¾‚·‚é
+  *æœ€æ–°treeæƒ…å ±ã‚’å–å¾—ã™ã‚‹
  */
   getTreeInfo(url: string): Promise<any> {
-    //API‚©‚çtreeî•ñ‚ğæ“¾‚·‚é
+    //APIã‹ã‚‰treeæƒ…å ±ã‚’å–å¾—ã™ã‚‹
     let moreNodes = window.sessionStorage.getItem("moreNodes");
     let selNode = window.sessionStorage.getItem("selNode")
 
@@ -76,7 +76,7 @@ export class TreeList2Service {
     };
 
   /**
-   * node‚ğ‘I‘ğ‚µ‚½
+   * nodeã‚’é¸æŠã—ãŸ
    */
   getDefaultSettingSearch(url) {
     return this.http.get(url + "/get_search_setting")
@@ -151,12 +151,12 @@ export class TreeList2Service {
       let activity_id = $("#item_link").text();
       search = this.insertParam(search, "item_link", activity_id)
     }else {
-      let searchParam = (window as any).facetSearchFunctions.getFacetSearchCondition ?
-        (window as any).facetSearchFunctions.getFacetSearchCondition() : new URLSearchParams(window.location.search);
+      let searchParam = (window as any).facetSearchFunctions && (window as any).facetSearchFunctions.getFacetSearchCondition ?
+        (window as any).facetSearchFunctions.getFacetSearchCondition() : new URLSearchParams();
       let appendSearchParam = new URLSearchParams(search);
       searchParam.set('search_type', appendSearchParam.get('search_type'));
       searchParam.set('q', appendSearchParam.get('q'));
-      if((window as any).invenioSearchFunctions.reSearchInvenio){
+      if((window as any).invenioSearchFunctions && (window as any).invenioSearchFunctions.reSearchInvenio){
         (window as any).invenioSearchFunctions.reSearchInvenio(searchParam);
       }else{
         window.location.assign("/search?"+ searchParam);
@@ -185,7 +185,7 @@ export class TreeList2Service {
   }
 
   /**
-   * ƒGƒ‰[ˆ—
+   * ã‚¨ãƒ©ãƒ¼å‡¦ç†
    */
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); //
