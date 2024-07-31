@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, ViewChild, Input, Output, EventEmitter,AfterViewInit,ElementRef} from '@angular/core';
 import {TreeModel, NodeEvent, NodeMenuItemAction, TreeModelSettings, Ng2TreeSettings, NodeMovedEvent} from '../../../ng2-tree';
 import {TreeList2Service} from '../tree-list2.service';
 import {Http, RequestOptions, Headers} from '@angular/http';
@@ -154,7 +154,13 @@ export class TreeList2Component implements OnInit {
     Add_Update_Success: [],
     Err_File_Ext: [],
     Enter_Required_Fields: [],
-    Required_Input: []
+    Required_Input: [],
+    //インデックスの公開ロック機能追加
+    Harvest_check_message: [],
+    Harvest_checkbox:[],
+    btn_message_enable:[],
+    btn_message_close:[],
+    //インデックスの公開ロック機能追加
   };
   public formData: FormData = new FormData();
   private imgSrc = '';
@@ -754,5 +760,56 @@ export class TreeList2Component implements OnInit {
       '<div class="alert alert-' + type + '" id="">' +
       '<button type="button" class="close" data-dismiss="alert">' +
       '&times;</button>' + message + '</div>');
+  }
+
+  //インデックスの公開ロック機能追加
+  modalAberto = { status: 'none' };
+  isCheckboxChecked = false;
+
+  openModal() {
+    this.modalAberto.status = 'block';
+    this.resetModalCheckboxState();
+  }
+
+  closeModal() {
+    this.modalAberto.status = 'none';
+    this.resetModalCheckbox();
+  }
+
+  closeModal_2() {
+    this.modalAberto.status = 'none';
+    this.resetModalCheckbox();
+  }
+
+  Enable() {
+    this.detailData.harvest_public_state = true;
+    this.closeModal();
+  }
+
+  Cancel() {
+    this.detailData.harvest_public_state = false;
+    this.closeModal();
+  }
+
+  onModalCheckboxChange(event: Event) {
+    this.isCheckboxChecked = (event.target as HTMLInputElement).checked;
+  }
+
+  onCheckboxChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
+      this.openModal();
+    }
+  }
+
+  resetModalCheckbox() {
+    this.isCheckboxChecked = false;
+  }
+
+  resetModalCheckboxState() {
+    const modalCheckbox = document.querySelector('.Mymodal input[type="checkbox"]') as HTMLInputElement;
+    if (modalCheckbox) {
+      modalCheckbox.checked = false;
+    }
   }
 }

@@ -11,3 +11,119 @@
 .margin-0 {
   margin-top: 0px;
 }
+
+/* モーダルウィンドウのスタイル */
+/* パネルのスタイル */
+.panel {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.panel-body {
+  padding: 15px;
+}
+
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.col-sm-2, .col-md-2, .col-sm-10, .col-md-10 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.checkbox {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.text-danger {
+  color: #a94442;
+}
+
+/* モーダルウィンドウのスタイル */
+.Mymodal {
+  display: none; /* デフォルトでは非表示 */
+  position: fixed; /* 固定位置 */
+  z-index: 1050; /* 他のコンテンツの上に表示 */
+  left: 0;
+  top: 0;
+  width: 100%; /* フルスクリーン */
+  height: 100%; /* フルスクリーン */
+  overflow: auto; /* 必要に応じてスクロール */
+  background-color: rgba(0, 0, 0, 0.5); /* 背面を薄暗くする */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 上下のマージンと中央寄せ */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%; /* 幅 */
+  z-index: 1060; /* モーダルコンテンツをさらに前面に */
+}
+
+.modal-header, .modal-footer {
+  padding: 10px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-header {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.modal-footer {
+  border-top: 1px solid #e5e5e5;
+  text-align: right; /* ボタンを右寄せ */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.enable_button:disabled {
+  background-color: #ccc; /* 非活性時の背景色 */
+  cursor: not-allowed; /* 非活性時のカーソル */
+}
+
+.enable_button {
+  background-color: #5bc0de; /* 活性時の背景色 */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.cancel-button {
+  background-color: #d9534f; /* キャンセルボタンの背景色 */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
