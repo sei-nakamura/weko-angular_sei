@@ -1,8 +1,6 @@
-import {Component, OnInit, ViewChild, Input, Output, EventEmitter,AfterViewInit,ElementRef} from '@angular/core';
-import {TreeModel, NodeEvent, NodeMenuItemAction, TreeModelSettings, Ng2TreeSettings, NodeMovedEvent} from '../../../ng2-tree';
+import {Component, OnInit, ViewChild, Input} from '@angular/core';
+import {TreeModel, NodeEvent, TreeModelSettings, Ng2TreeSettings, NodeMovedEvent} from '../../../ng2-tree';
 import {TreeList2Service} from '../tree-list2.service';
-import {Http, RequestOptions, Headers} from '@angular/http';
-import {Response} from '@angular/http/src/static_response';
 import * as $ from 'jquery';
 
 @Component({
@@ -777,12 +775,12 @@ export class TreeList2Component implements OnInit {
     this.resetModalCheckbox();
   }
   
-  Enable() {
+  enable() {
     this.detailData.harvest_public_state = true;
     this.closeModal();
   }
   
-  Cancel() {
+  cancel() {
     this.detailData.harvest_public_state = false;
     this.closeModal();
   }
@@ -823,14 +821,14 @@ export class TreeList2Component implements OnInit {
     this.resetModalCheckbox2();
   }
   
-  Enable2() {
+  enable2() {
     this.detailData.public_state = true;
     this.isModalConfirmed2 = true; // モーダルが確認されたことを設定
     this.closeModal2();
     this.updateExternalCheckbox2(); // 外部のチェックボックスを更新
   }
   
-  Cancel2() {
+  cancel2() {
     this.detailData.public_state = false;
     this.isModalConfirmed2 = false; // モーダルが確認されなかったことを設定
     this.closeModal2();
