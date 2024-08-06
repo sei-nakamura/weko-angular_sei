@@ -164,7 +164,7 @@
                       &times;
                     </button>
                     <h4 class="modal-title" id="myModalLabel2">
-                      WARNNIG
+                      WARNING
                     </h4>
                   </div>
                   <div class="modal-body">
@@ -180,11 +180,11 @@
                   </div>
                   <div class="modal-footer modFooter">
                     <!--変更(OK)ボタン-->
-                    <button type="button" class="btn btn-info enable_button" data-dismiss="modal" (click)="Enable2()" [disabled]="!isCheckboxChecked2">
+                    <button type="button" class="btn btn-info enable_button" data-dismiss="modal" (click)="enable2()" [disabled]="!isCheckboxChecked2">
                       {{langJson.btn_message_enable[1]}}
                     </button>
                     <!--閉じるボタン-->
-                    <button type="button" class="btn btn-info cancel-button" data-dismiss="modal" (click)="Cancel2()">
+                    <button type="button" class="btn btn-info cancel-button" data-dismiss="modal" (click)="cancel2()">
                       {{langJson.btn_message_close[1]}}
                     </button>
                   </div>
@@ -328,7 +328,7 @@
                       &times;
                     </button>
                     <h4 class="modal-title" id="myModalLabel">
-                      WARNNIG
+                      WARNING
                     </h4>
                   </div>
                   <div class="modal-body">
@@ -344,11 +344,11 @@
                   </div>
                   <div class="modal-footer modFooter">
                     <!--変更(OK)ボタン-->
-                    <button type="button" class="btn btn-info enable_button" data-dismiss="modal" (click)="Enable()" [disabled]="!isCheckboxChecked">
+                    <button type="button" class="btn btn-info enable_button" data-dismiss="modal" (click)="enable()" [disabled]="!isCheckboxChecked">
                       {{langJson.btn_message_enable[1]}}
                     </button>
                     <!--閉じるボタン-->
-                    <button type="button" class="btn btn-info cancel-button" data-dismiss="modal" (click)="Cancel()">
+                    <button type="button" class="btn btn-info cancel-button" data-dismiss="modal" (click)="cancel()">
                       {{langJson.btn_message_close[1]}}
                     </button>
                   </div>
