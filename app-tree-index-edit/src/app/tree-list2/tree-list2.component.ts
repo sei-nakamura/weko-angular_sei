@@ -1,8 +1,6 @@
-import {Component, OnInit, ViewChild, Input, Output, EventEmitter,AfterViewInit,ElementRef} from '@angular/core';
-import {TreeModel, NodeEvent, NodeMenuItemAction, TreeModelSettings, Ng2TreeSettings, NodeMovedEvent} from '../../../ng2-tree';
+import {Component, OnInit, ViewChild, Input} from '@angular/core';
+import {TreeModel, NodeEvent, TreeModelSettings, Ng2TreeSettings, NodeMovedEvent} from '../../../ng2-tree';
 import {TreeList2Service} from '../tree-list2.service';
-import {Http, RequestOptions, Headers} from '@angular/http';
-import {Response} from '@angular/http/src/static_response';
 import * as $ from 'jquery';
 
 @Component({
@@ -87,7 +85,8 @@ export class TreeList2Component implements OnInit {
     biblio_flag: false,
     display_format: '1',
     thumbnail_delete_flag: false,
-    image_name: ''
+    image_name: '',
+    harvest_public_state2: false
   };
   public roleModel = {
     browsing_role_able: [],
@@ -765,51 +764,105 @@ export class TreeList2Component implements OnInit {
   //インデックスの公開ロック機能追加
   modalAberto = { status: 'none' };
   isCheckboxChecked = false;
-
+  
   openModal() {
     this.modalAberto.status = 'block';
     this.resetModalCheckboxState();
   }
-
+  
   closeModal() {
     this.modalAberto.status = 'none';
     this.resetModalCheckbox();
   }
-
-  closeModal_2() {
-    this.modalAberto.status = 'none';
-    this.resetModalCheckbox();
-  }
-
-  Enable() {
+  
+  enable() {
     this.detailData.harvest_public_state = true;
     this.closeModal();
   }
-
-  Cancel() {
+  
+  cancel() {
     this.detailData.harvest_public_state = false;
     this.closeModal();
   }
-
+  
   onModalCheckboxChange(event: Event) {
     this.isCheckboxChecked = (event.target as HTMLInputElement).checked;
   }
-
+  
   onCheckboxChange(event: Event) {
     const checkbox = event.target as HTMLInputElement;
     if (checkbox.checked) {
       this.openModal();
     }
   }
-
+  
   resetModalCheckbox() {
     this.isCheckboxChecked = false;
   }
-
+  
   resetModalCheckboxState() {
-    const modalCheckbox = document.querySelector('.Mymodal input[type="checkbox"]') as HTMLInputElement;
+    const modalCheckbox = document.querySelector('#CofirmModalComponent input[type="checkbox"]') as HTMLInputElement;
     if (modalCheckbox) {
       modalCheckbox.checked = false;
+    }
+  }
+  
+  modalAberto2 = { status: 'none' };
+  isCheckboxChecked2 = false;
+  isModalConfirmed2 = false; // モーダルの確認状態を追加
+  
+  openModal2() {
+    this.modalAberto2.status = 'block';
+    this.resetModalCheckboxState2();
+  }
+  
+  closeModal2() {
+    this.modalAberto2.status = 'none';
+    this.resetModalCheckbox2();
+  }
+  
+  enable2() {
+    this.detailData.public_state = true;
+    this.isModalConfirmed2 = true; // モーダルが確認されたことを設定
+    this.closeModal2();
+    this.updateExternalCheckbox2(); // 外部のチェックボックスを更新
+  }
+  
+  cancel2() {
+    this.detailData.public_state = false;
+    this.isModalConfirmed2 = false; // モーダルが確認されなかったことを設定
+    this.closeModal2();
+  }
+  
+  onModalCheckboxChange2(event: Event) {
+    this.isCheckboxChecked2 = (event.target as HTMLInputElement).checked;
+  }
+  
+  onCheckboxChange2(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked && !this.isModalConfirmed2) {
+      this.openModal2();
+      checkbox.checked = false; // モーダルが確認されるまで外部のチェックボックスをチェックしない
+    } else if (!checkbox.checked) {
+      this.isModalConfirmed2 = false; // 外部のチェックボックスがオフになった場合、モーダルの確認状態をリセット
+    }
+  }
+  
+  resetModalCheckbox2() {
+    this.isCheckboxChecked2 = false;
+  }
+  
+  resetModalCheckboxState2() {
+    const modalCheckbox = document.querySelector('#ConfirmModalComponent2 input[type="checkbox"]') as HTMLInputElement;
+    if (modalCheckbox) {
+      modalCheckbox.checked = false;
+    }
+  }
+  
+  updateExternalCheckbox2() {
+    const externalCheckbox = document.querySelector('#rss_display') as HTMLInputElement;
+    if (externalCheckbox) {
+      externalCheckbox.checked = this.isModalConfirmed2;
     }
   }
 }
