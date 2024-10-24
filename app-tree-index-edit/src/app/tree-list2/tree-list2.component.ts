@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild, Input} from '@angular/core';
 import {TreeModel, NodeEvent, TreeModelSettings, Ng2TreeSettings, NodeMovedEvent} from '../../../ng2-tree';
 import {TreeList2Service} from '../tree-list2.service';
 import * as $ from 'jquery';
+import { componentFactoryName } from '@angular/compiler';
 
 @Component({
   selector: 'app-tree-list2',
@@ -205,11 +206,20 @@ export class TreeList2Component implements OnInit {
     }
   }
 
-  /**
+    /**
    * 画面をロードした後に処理を行う
    */
-  ngAfterViewInit(): void {
-  }
+    ngAfterViewInit(): void {
+      this.showModal_view();
+      this.showModal_view2();
+    }
+
+    /**
+   * ngAfterViewInitをロードした後に処理を行う
+   */
+    ngAfterContentinit(): void {
+      this.openModal2();
+    }
 
   /**
    *
@@ -764,12 +774,24 @@ export class TreeList2Component implements OnInit {
   //インデックスの公開ロック機能追加
   modalAberto = { status: 'none' };
   isCheckboxChecked = false;
-  
-  openModal() {
-    this.modalAberto.status = 'block';
-    this.resetModalCheckboxState();
+  showModal: boolean;
+
+  showModal_view(): void {
+    // show_modalの値を取得
+    const showModalElement = document.querySelector('#show_modal') as HTMLInputElement;
+    this.showModal = showModalElement.value === 'True';
   }
-  
+
+  openModal() {
+    if(this.showModal){
+      this.modalAberto.status = 'block';
+      this.resetModalCheckboxState();
+    }else{
+      this.modalAberto.status = 'none';
+      this.resetModalCheckboxState();
+    }
+  }
+
   closeModal() {
     this.modalAberto.status = 'none';
     this.resetModalCheckbox();
@@ -810,12 +832,26 @@ export class TreeList2Component implements OnInit {
   modalAberto2 = { status: 'none' };
   isCheckboxChecked2 = false;
   isModalConfirmed2 = false; // モーダルの確認状態を追加
+  showModal2: boolean;
   
-  openModal2() {
-    this.modalAberto2.status = 'block';
-    this.resetModalCheckboxState2();
+  showModal_view2(): void {
+    // show_modalの値を取
+    const showModalElement2 = document.querySelector('#show_modal') as HTMLInputElement;
+    console.log('showModalElement2.value: ' + showModalElement2.value);
+    this.showModal2 = showModalElement2.value === 'True';
   }
-  
+
+  openModal2() {
+    console.log('openModal2');
+    if(this.showModal2){
+      this.modalAberto2.status = 'block';
+      this.resetModalCheckboxState2();
+    }else{
+      this.modalAberto2.status = 'none';
+      this.resetModalCheckboxState2();
+    }
+  }
+
   closeModal2() {
     this.modalAberto2.status = 'none';
     this.resetModalCheckbox2();
@@ -840,11 +876,13 @@ export class TreeList2Component implements OnInit {
   
   onCheckboxChange2(event: Event) {
     const checkbox = event.target as HTMLInputElement;
-    if (checkbox.checked && !this.isModalConfirmed2) {
+    if (checkbox.checked && !this.isModalConfirmed2 && this.showModal2) {
       this.openModal2();
       checkbox.checked = false; // モーダルが確認されるまで外部のチェックボックスをチェックしない
     } else if (!checkbox.checked) {
       this.isModalConfirmed2 = false; // 外部のチェックボックスがオフになった場合、モーダルの確認状態をリセット
+    } else if (!this.showModal2) {
+      this.resetModalCheckbox2();
     }
   }
   
